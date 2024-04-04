@@ -1,0 +1,1 @@
+export const camperData = (state) => state.campers.items;

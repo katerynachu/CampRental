@@ -1,0 +1,1 @@
+export const filterData = (state) => state.filters.items;
