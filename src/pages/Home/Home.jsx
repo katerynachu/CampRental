@@ -14,7 +14,7 @@ export default function Home() {
     const fetchedCamperData = useSelector(selectCamperData);
     const [currentPage, setCurrentPage] = useState(1);
     const [displayedCamperData, setDisplayedCamperData] = useState([]);
-const res = useSelector(filteredCampers);
+    const res = useSelector(filteredCampers);
     useEffect(() => {
         const fetchCamperData = async () => {
             try {
@@ -29,8 +29,8 @@ const res = useSelector(filteredCampers);
     }, [dispatch]);
 
     useEffect(() => {
-        setDisplayedCamperData(fetchedCamperData.slice(0, currentPage * ITEMS_PER_PAGE));
-    }, [fetchedCamperData, currentPage]);
+        setDisplayedCamperData(res.slice(0, currentPage * ITEMS_PER_PAGE));
+    }, [res, currentPage]);
 
     const handleLoadMore = () => {
         setCurrentPage(prevPage => prevPage + 1);

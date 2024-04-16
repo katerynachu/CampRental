@@ -5,7 +5,7 @@ import { RadioButton } from "../parts/RadioButton/RadioButton"
 
 const vehicleType = [
     { id: '1-vehicle', value: 'Van', label: 'van' },
-    { id: '2-vehicle', value: 'Fully Integrated', label: 'fully' },
+    { id: '2-vehicle', value: 'FullyIntegrated', label: 'fully' },
     { id: '3-vehicle', value: 'Alcove', label: 'alcove' },
 
 ]
