@@ -5,7 +5,6 @@ import { RadioInput, RadioLabel } from './RadioButton.styled'
 export const RadioButton = ({ item, size, formik, fieldName }) => {
 
 
-
     return (
         <>
             <RadioInput
@@ -13,7 +12,7 @@ export const RadioButton = ({ item, size, formik, fieldName }) => {
                 type='radio'
                 value={item.value}
                 checked={formik.values[fieldName] === item.value}
-                onChange={() => formik.setFieldValue(fieldName, item.value)}
+                onChange={() => formik.handleChange({ target: { name: fieldName, value: item.value } })}
             />
             <RadioLabel htmlFor={item.id}>
                 <svg width={size} height={size}>

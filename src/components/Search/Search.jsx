@@ -25,7 +25,7 @@ export const Search = () => {
             localStorage.setItem('filtersData', JSON.stringify(values));
 
             console.log(values)
-            alert(JSON.stringify(values, null, 2));
+            // alert(JSON.stringify(values, null, 2));
         },
     });
 
@@ -36,12 +36,28 @@ export const Search = () => {
             formik.setValues(parsedFiltersData);
         }
     }, []);
+    const handleLocationChange = event => {
+        formik.handleChange(event);
+        formik.handleSubmit();
+    };
+
+    const handleTypeChange = event => {
+        formik.handleChange(event);
+        formik.handleSubmit();
+    };
+
+    const handleEquipmentChange = event => {
+        console.log(event)
+        formik.handleChange(event);
+        formik.handleSubmit();
+    };
+
     return (
         <form onSubmit={formik.handleSubmit}>
-            <LocationItem formik={formik} />
+            <LocationItem formik={{ ...formik, handleChange: handleLocationChange }} />
             <FilterTitle>filters</FilterTitle>
-            <VehicleEquipment formik={formik} />
-            <VehicleType formik={formik} />
+            <VehicleEquipment formik={{ ...formik, handleChange: handleEquipmentChange }} />
+            <VehicleType formik={{ ...formik, handleChange: handleTypeChange }} />
             <ButtonItem text='Submit' type="submit" style='red' />
         </form>
     );
