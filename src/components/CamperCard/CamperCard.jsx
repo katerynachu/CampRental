@@ -12,7 +12,6 @@ export const CamperCard = ({ item }) => {
 
     const averageRating = sum / reviewsRat.length;
 
-
     return (
         <CamperWrapper>
             <ImageWrapper><CamperImage src={item.gallery[0]}></CamperImage></ImageWrapper>
@@ -23,10 +22,14 @@ export const CamperCard = ({ item }) => {
                         <p>{item.price} <span>*</span></p>
                     </div>
                     <div>
-                        <p> 
-                        <svg width={16} height={16}>
-                            <use xlinkHref={`${sprite}#icon-rating`} width={16} height={16}></use>
-                        </svg>{averageRating} <span>({item.reviews.length} )Reviews </span></p>
+                        <p>
+                            {[...Array(Math.floor(averageRating))].map((_, index) => (
+                                <svg key={index} width={16} height={16}>
+                                    <use xlinkHref={`${sprite}#icon-rating`} width={16} height={16}></use>
+                                </svg>
+                            ))}
+
+                            {averageRating} <span>({item.reviews.length} )Reviews </span></p>
                         <p>location</p>
                     </div>
                 </div>

@@ -34,6 +34,8 @@ export const Search = () => {
         if (storedFiltersData) {
             const parsedFiltersData = JSON.parse(storedFiltersData);
             formik.setValues(parsedFiltersData);
+            dispatch(setFilterData(parsedFiltersData));
+
         }
     }, []);
     const handleLocationChange = event => {
