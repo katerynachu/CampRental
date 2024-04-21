@@ -2,15 +2,26 @@ import { ButtonItem } from "../parts/Button/Button"
 import { CategoriesItem } from "../parts/CategoriesItem/CategoriesItem"
 import { CamperDescription, CamperImage, CamperWrapper, CategoriesWrapp, ContentFlex, ImageWrapper } from "./CamperCard.styled"
 import sprite from '../../assets/images/sprite.svg'
+import { useDispatch } from 'react-redux';
+import { setFavoritesData, removeFavoritesData } from '../redux/campers/camperSlice';
 
-export const CamperCard = ({ item }) => {
-
+export const CamperCard = ({ item, }) => {
+    const dispatch = useDispatch();
+    const handleFavoriteClick = () => {
+        if (item.isFavorite) {
+            dispatch(removeFavoritesData(item));
+        } else {
+            dispatch(setFavoritesData(item));
+        }
+    };
     const reviewsRat = item.reviews.map(reviews => (
         reviews.reviewer_rating
     ));
     const sum = reviewsRat.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
     const averageRating = sum / reviewsRat.length;
+
+
 
     return (
         <CamperWrapper>
@@ -19,7 +30,15 @@ export const CamperCard = ({ item }) => {
                 <div>
                     <div>
                         <h3>{item.name}</h3>
-                        <p>{item.price} <span>*</span></p>
+                        <p>{item.price} <span>€</span></p>
+                        <a href='/' onClick={(e) => {
+                            e.preventDefault();
+                            handleFavoriteClick();
+                        }}>
+                            <svg width={16} height={16}>
+                                <use xlinkHref={`${sprite}#icon-heart`} width={16} height={16}></use>
+                            </svg>
+                        </a>
                     </div>
                     <div>
                         <p>
@@ -28,9 +47,8 @@ export const CamperCard = ({ item }) => {
                                     <use xlinkHref={`${sprite}#icon-rating`} width={16} height={16}></use>
                                 </svg>
                             ))}
-
-                            {averageRating} <span>({item.reviews.length} )Reviews </span></p>
-                        <p>location</p>
+                            {averageRating} <span>({item.reviews.length} Reviews ) </span></p>
+                        <p>{item.location}</p>
                     </div>
                 </div>
                 <CamperDescription>{item.description}</CamperDescription>

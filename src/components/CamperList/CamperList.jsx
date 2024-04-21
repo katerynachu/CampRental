@@ -3,7 +3,7 @@ import { ButtonItem } from "../parts/Button/Button"
 import { CamperDiv, CamperListFlex } from "./CamperList.styled"
 
 
-export const CamperList = ({ items, onLoadMore, defaultData }) => {
+export const CamperList = ({ items, onLoadMore, defaultData, }) => {
 
 
     return (

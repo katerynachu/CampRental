@@ -20,6 +20,7 @@ export const store = configureStore({
         campers: campersReducer,
         filters: filterReducer,
 
+
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

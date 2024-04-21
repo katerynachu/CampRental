@@ -5,7 +5,6 @@ import { camperData } from '../campers/selectors'
 export const filterData = (state) => state.filters.items;
 
 
-
 export const filteredCampers = createSelector(
     [camperData, filterData],
     (campers, filter) => {

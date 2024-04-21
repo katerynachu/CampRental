@@ -16,20 +16,36 @@ const campersSlice = createSlice({
     name: 'campers',
     initialState: {
         items: [],
+        favorites: [],
         isLoading: false,
         error: null
     },
     reducers: {
         setCamperData: (state, action) => {
-            state.items = action.payload;
-
+            state.items = action.payload.map(item => ({ ...item, id: item._id, isFavorite: false }));
         },
-        // setBirthdate: (state, action) => {
-        //     state.items.bodyData.birthday = action.payload;
-        // },
-        // setLoading: (state, action) => {
-        //     state.isLoading = action.payload;
-        // },
+        setFavoritesData: (state, action) => {
+            const { id } = action.payload;
+            console.log(id)
+
+            const camper = state.items.find(item => item.id === id);
+            if (camper) {
+                camper.isFavorite = true;
+                state.favorites.push(camper);
+            }
+        },
+        removeFavoritesData: (state, action) => {
+            const { id } = action.payload;
+            console.log(id)
+            const index = state.favorites.findIndex(item => item.id === id);
+            if (index !== -1) {
+                state.favorites.splice(index, 1);
+            }
+            const camper = state.items.find(item => item.id === id);
+            if (camper) {
+                camper.isFavorite = false;
+            }
+        }
     },
     extraReducers: builder => {
         builder
@@ -42,6 +58,6 @@ const campersSlice = createSlice({
             .addCase(fetchCampers.rejected, handleRejected)
     }
 })
-export const { setCamperData } = campersSlice.actions;
+export const { setCamperData, setFavoritesData, removeFavoritesData } = campersSlice.actions;
 
 export const campersReducer = campersSlice.reducer;
