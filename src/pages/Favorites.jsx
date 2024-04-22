@@ -13,6 +13,14 @@ export default function Favorites() {
 
     const res = useSelector(favoritesData);
 
+    const favorites = useSelector(favoritesData);
+
+    useEffect(() => {
+        const storedFavorites = JSON.parse(localStorage.getItem('favorites'));
+        if (storedFavorites && storedFavorites.length > 0) {
+            dispatch(setFavoritesData(storedFavorites));
+        }
+    }, [dispatch]);
     const handleLoadMore = () => {
         setCurrentPage(prevPage => prevPage + 1);
     };
@@ -33,7 +41,7 @@ export default function Favorites() {
     return (
         <>
             {displayedCamperData && displayedCamperData.length > 0 ? (
-                <CamperList onLoadMore={handleLoadMore} onRemoveFavorite={handleRemoveFavorite} onAddFavorite={handleAddFavorite} defaultData={res} items={displayedCamperData} />
+                <CamperList onLoadMore={handleLoadMore} onRemoveFavorite={handleRemoveFavorite} onAddFavorite={handleAddFavorite} defaultData={favorites} items={displayedCamperData} />
             ) : (
                 <p>Not found </p>
 
