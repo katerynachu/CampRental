@@ -35,15 +35,7 @@ export default function Home() {
     const handleLoadMore = () => {
         setCurrentPage(prevPage => prevPage + 1);
     };
-    // const handleAddFavorite = (item) => {
-    //     console.log('yay', item)
-    //     dispatch(setFavoritesData(item))
-    // }
-    // const handleRemoveFavorite = (item) => {
-    //     console.log('ops', item)
-    //     dispatch(removeFavoritesData(item))
 
-    // }
     return (
         <HomeWrapper>
             <SideBar />

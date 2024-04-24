@@ -4,10 +4,12 @@ import { CamperDescription, CamperImage, CamperWrapper, CategoriesWrapp, Content
 import sprite from '../../assets/images/sprite.svg'
 import { useDispatch } from 'react-redux';
 import { setFavoritesData, removeFavoritesData } from '../redux/campers/camperSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { ModalWindow } from "../ModalWindow/ModalWindow";
 
 export const CamperCard = ({ item, }) => {
     const dispatch = useDispatch();
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
@@ -43,7 +45,9 @@ export const CamperCard = ({ item, }) => {
     const sum = reviewsRat.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
     const averageRating = sum / reviewsRat.length;
-
+    const handleModalOpen = () => {
+        setIsOpen(true);
+    }
 
 
     return (
@@ -97,8 +101,9 @@ export const CamperCard = ({ item, }) => {
                         index < 5 && <CategoriesItem key={key} title={key} value={value} />
                     ))}
                 </CategoriesWrapp>
-                <ButtonItem type='button' text='Show more' style='red' />
+                <ButtonItem type='button' onLoadMore={handleModalOpen} text='Show more' style='red' />
             </ContentFlex>
+            {isOpen && <ModalWindow selectedItem={item} onClose={() => setIsOpen(false)} />}
         </CamperWrapper>
     )
 }
