@@ -6,7 +6,8 @@ import { useDispatch } from 'react-redux';
 import { setFavoritesData, removeFavoritesData } from '../redux/campers/camperSlice';
 import { useEffect, useState } from 'react';
 import { ModalWindow } from "../ModalWindow/ModalWindow";
-
+import { Rating } from "../parts/Rating/Rating";
+import { averageRatingCalc } from '../../assets/helpers/helpers'
 export const CamperCard = ({ item, }) => {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
@@ -39,16 +40,11 @@ export const CamperCard = ({ item, }) => {
         }
     };
 
-    const reviewsRat = item.reviews.map(reviews => (
-        reviews.reviewer_rating
-    ));
-    const sum = reviewsRat.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    const averageRating = averageRatingCalc(item)
 
-    const averageRating = sum / reviewsRat.length;
     const handleModalOpen = () => {
         setIsOpen(true);
     }
-
 
     return (
         <CamperWrapper>
@@ -69,11 +65,12 @@ export const CamperCard = ({ item, }) => {
                     </div>
                     <div>
                         <p>
-                            {[...Array(Math.floor(averageRating))].map((_, index) => (
+                            <Rating averageRating={averageRating}></Rating>
+                            {/* {[...Array(Math.floor(averageRating))].map((_, index) => (
                                 <svg key={index} width={16} height={16}>
                                     <use xlinkHref={`${sprite}#icon-rating`} width={16} height={16}></use>
                                 </svg>
-                            ))}
+                            ))} */}
                             {averageRating} <span>({item.reviews.length} Reviews ) </span></p>
                         <p>{item.location}</p>
                     </div>
