@@ -5,7 +5,7 @@ import axios from 'axios';
 import { CamperList } from '../../components/CamperList/CamperList'
 import { filteredCampers } from '../../components/redux/filter/selectors'
 import { SideBar } from '../../components/SideBar/SideBar';
-import { HomeWrapper } from './HomePage.styled';
+import { HomeWrapper } from './Catalog.styled';
 const ITEMS_PER_PAGE = 4;
 
 export default function Home() {

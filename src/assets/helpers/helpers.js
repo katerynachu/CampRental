@@ -1,4 +1,4 @@
-//function for AvarageRating
+//function for AverageRating
 
 export function averageRatingCalc(item) {
     const reviewsRat = item.reviews.map(reviews => (
