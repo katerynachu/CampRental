@@ -15,7 +15,7 @@ export default function Home() {
 
     const res = useSelector(filteredCampers);
     useEffect(() => {
-        console.log(4)
+        // console.log(4)
         const fetchCamperData = async () => {
             try {
                 const response = await axios.get('https://65fc90ee9fc4425c65306aba.mockapi.io/campers/campers');
@@ -29,9 +29,27 @@ export default function Home() {
     }, [dispatch]);
 
     useEffect(() => {
-
-        setDisplayedCamperData(res.slice(0, currentPage * ITEMS_PER_PAGE));
+        if (res && res.length > 0) {
+            const favoritesFromLocalStorage = JSON.parse(localStorage.getItem('favorites')) || [];
+            const updatedCamperData = res.map(camper => ({
+                ...camper,
+                isFavorite: favoritesFromLocalStorage.some(favorite => favorite.id === camper.id)
+            }));
+            setDisplayedCamperData(updatedCamperData.slice(0, currentPage * ITEMS_PER_PAGE));
+        }
     }, [res, currentPage]);
+
+
+    // const updateFavoritesStatus = () => {
+    //     if (res && res.length > 0) {
+    //         const favoritesFromLocalStorage = JSON.parse(localStorage.getItem('favorites')) || [];
+    //         const updatedCamperData = res.map(camper => ({
+    //             ...camper,
+    //             isFavorite: favoritesFromLocalStorage.some(favorite => favorite.id === camper.id)
+    //         }));
+    //         setDisplayedCamperData(updatedCamperData.slice(0, currentPage * ITEMS_PER_PAGE));
+    //     }
+    // };
     const handleLoadMore = () => {
         setCurrentPage(prevPage => prevPage + 1);
     };

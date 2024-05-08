@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { favoritesData } from '../components/redux/campers/selectors';
 import { CamperList } from '../components/CamperList/CamperList'
-import { setFavoritesData, removeFavoritesData } from '../components/redux/campers/camperSlice';
+import { setFavoritesData, removeFavoritesCamp, addFavoriteCamp } from '../components/redux/campers/camperSlice';
 
 const ITEMS_PER_PAGE = 4;
 
@@ -17,6 +17,7 @@ export default function Favorites() {
 
     useEffect(() => {
         const storedFavorites = JSON.parse(localStorage.getItem('favorites'));
+        // console.log(storedFavorites)
         if (storedFavorites && storedFavorites.length > 0) {
             dispatch(setFavoritesData(storedFavorites));
         }
@@ -25,12 +26,12 @@ export default function Favorites() {
         setCurrentPage(prevPage => prevPage + 1);
     };
     const handleAddFavorite = (item) => {
-        dispatch(setFavoritesData(item));
+        dispatch(addFavoriteCamp(item));
         setDisplayedCamperData(res.slice(0, currentPage * ITEMS_PER_PAGE));
     }
 
     const handleRemoveFavorite = (item) => {
-        dispatch(removeFavoritesData(item));
+        dispatch(removeFavoritesCamp(item));
         setDisplayedCamperData(res.filter(camper => camper.id !== item.id).slice(0, currentPage * ITEMS_PER_PAGE));
     }
 

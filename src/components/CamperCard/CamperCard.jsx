@@ -3,8 +3,8 @@ import { CategoriesItem } from "../parts/CategoriesItem/CategoriesItem"
 import { CamperDescription, CamperImage, CamperWrapper, CategoriesWrapp, ContentFlex, ImageWrapper } from "./CamperCard.styled"
 import sprite from '../../assets/images/sprite.svg'
 import { useDispatch } from 'react-redux';
-import { setFavoritesData, removeFavoritesData } from '../redux/campers/camperSlice';
-import { useEffect, useState } from 'react';
+import { addFavoriteCamp, removeFavoritesCamp } from '../redux/campers/camperSlice';
+import { useState } from 'react';
 import { ModalWindow } from "../ModalWindow/ModalWindow";
 import { Rating } from "../parts/Rating/Rating";
 import { averageRatingCalc } from '../../assets/helpers/helpers'
@@ -12,10 +12,6 @@ export const CamperCard = ({ item, }) => {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
 
-    useEffect(() => {
-        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        setFavoritesData(favorites);
-    }, []);
 
     const addToLocalStorage = (key, value) => {
         const favorites = JSON.parse(localStorage.getItem(key)) || [];
@@ -32,13 +28,17 @@ export const CamperCard = ({ item, }) => {
     const handleFavoriteClick = () => {
         if (item.isFavorite) {
             removeFromLocalStorage('favorites', item);
-            dispatch(removeFavoritesData(item));
+            dispatch(removeFavoritesCamp(item));
         } else {
-            addToLocalStorage('favorites', item);
-
-            dispatch(setFavoritesData(item));
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const isAlreadyInFavorites = favorites.some(favorite => favorite.id === item.id);
+            if (!isAlreadyInFavorites) {
+                addToLocalStorage('favorites', item);
+                dispatch(addFavoriteCamp(item));
+            }
         }
     };
+
 
     const averageRating = averageRatingCalc(item)
 
