@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { GlobalStyle } from './GlobalStyles'
 import { AppLayout } from './components/AppLayout/AppLayout'
+import { Toaster } from 'react-hot-toast';
 
 
 export const App = () => {
@@ -23,8 +24,10 @@ export const App = () => {
           </Route>
         </Routes>
       </Suspense>
-
-      <GlobalStyle />
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />      <GlobalStyle />
 
     </>
   );

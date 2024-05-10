@@ -9,39 +9,35 @@ export const filteredCampers = createSelector(
     [camperData, filterData],
     (campers, filter) => {
         const equipmentFilter = filter.equipment;
-
         if (!filter) {
             return campers
         }
-        let filteredCampers = campers;
-
-        if (filter.location !== '' && filter.location) {
-            filteredCampers = filteredCampers.filter(camp => camp.location.toLowerCase().includes(filter.location.toLowerCase()));
-        }
-
-        if (filter.type && filter.type) {
-
-            filteredCampers = filteredCampers.filter(camp => camp.form.toLowerCase().includes(filter.type.toLowerCase()));
-        }
-
-        if (filter && filter.equipment) {
-            filteredCampers = filteredCampers.filter(camp => {
-                if (equipmentFilter === "automatic") {
-                    return camp.transmission.toLowerCase() === "automatic";
-                } else {
-                    if (camp.details) {
-                        if (equipmentFilter in camp.details) {
-                            const equipmentValue = camp.details[equipmentFilter];
-                            if (equipmentValue !== undefined && equipmentValue > 0) {
-                                return true;
-                            }
-                        }
-                    }
-                }
+        return campers.filter(camp => {
+            if (filter.location && filter.location !== '' && !camp.location.toLowerCase().includes(filter.location.toLowerCase())) {
                 return false;
-            });
-        }
-        return filteredCampers;
+            }
+
+            if (filter.type && filter.type !== 'All' && !camp.form.toLowerCase().includes(filter.type.toLowerCase())) {
+                return false;
+            }
+
+            if (equipmentFilter) {
+                if (equipmentFilter === "automatic" && camp.transmission.toLowerCase() !== "automatic") {
+                    return false;
+                }
+
+                if (camp.details && equipmentFilter in camp.details) {
+                    const equipmentValue = camp.details[equipmentFilter];
+                    if (equipmentValue === undefined || equipmentValue <= 0) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+
+            return true;
+        });
     }
 )
 

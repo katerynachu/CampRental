@@ -3,7 +3,9 @@ import { colors } from '../../theme'
 
 
 
-
+export const FormBlock = styled.form`
+max-width:360px;
+`
 
 export const FilterTitle = styled.p`
     ${'' /* font-family: var(--font-family); */}

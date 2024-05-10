@@ -30,6 +30,7 @@ export default function Favorites() {
     }
 
     const handleRemoveFavorite = (item) => {
+
         dispatch(removeFavoritesCamp(item));
         setDisplayedCamperData(res.filter(camper => camper.id !== item.id).slice(0, currentPage * ITEMS_PER_PAGE));
     }

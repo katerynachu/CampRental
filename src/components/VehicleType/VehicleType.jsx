@@ -4,9 +4,10 @@ import { RadioButton } from "../parts/RadioButton/RadioButton"
 
 
 const vehicleType = [
-    { id: '1-vehicle', value: 'Van', label: 'van' },
-    { id: '2-vehicle', value: 'FullyIntegrated', label: 'fully' },
-    { id: '3-vehicle', value: 'Alcove', label: 'alcove' },
+    { id: '1-vehicle', value: 'All', label: 'all' },
+    { id: '2-vehicle', value: 'Van', label: 'van' },
+    { id: '3-vehicle', value: 'FullyIntegrated', label: 'fully' },
+    { id: '4-vehicle', value: 'Alcove', label: 'alcove' },
 
 ]
 export const VehicleType = ({ formik }) => {

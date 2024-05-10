@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { ModalWindow } from "../ModalWindow/ModalWindow";
 import { Rating } from "../parts/Rating/Rating";
 import { averageRatingCalc } from '../../assets/helpers/helpers'
+import toast from "react-hot-toast";
 export const CamperCard = ({ item, }) => {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
@@ -27,9 +28,13 @@ export const CamperCard = ({ item, }) => {
 
     const handleFavoriteClick = () => {
         if (item.isFavorite) {
+            toast.error('Succesfully remove from favorite list')
+
             removeFromLocalStorage('favorites', item);
             dispatch(removeFavoritesCamp(item));
         } else {
+            toast.success('Succesfully add to favorite list')
+
             const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
             const isAlreadyInFavorites = favorites.some(favorite => favorite.id === item.id);
             if (!isAlreadyInFavorites) {

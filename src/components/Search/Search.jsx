@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { FilterTitle } from './Search.styled';
+import { FilterTitle, FormBlock } from './Search.styled';
 import { ButtonItem } from '../parts/Button/Button';
 import { LocationItem } from '../parts/LocationItem/LocationItem';
 import { VehicleType } from '../VehicleType/VehicleType';
@@ -8,12 +8,11 @@ import { setFilterData } from '../redux/filter/filterSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { filterData } from '../redux/filter/selectors'
 import { useEffect } from 'react';
-
+import toast from 'react-hot-toast';
 
 export const Search = () => {
     const dispatch = useDispatch();
     const filtersData = useSelector(filterData);
-
     const formik = useFormik({
         initialValues: {
             location: filtersData.location || '',
@@ -21,9 +20,9 @@ export const Search = () => {
             equipment: filtersData.equipment || null
         },
         onSubmit: values => {
+            toast.success('Up to date')
             dispatch(setFilterData(values));
             localStorage.setItem('filtersData', JSON.stringify(values));
-
         },
     });
 
@@ -36,10 +35,13 @@ export const Search = () => {
 
         }
     }, []);
+
+
     const handleLocationChange = event => {
         formik.handleChange(event);
         formik.handleSubmit();
     };
+
 
     const handleTypeChange = event => {
         formik.handleChange(event);
@@ -47,18 +49,17 @@ export const Search = () => {
     };
 
     const handleEquipmentChange = event => {
-        console.log(event)
         formik.handleChange(event);
         formik.handleSubmit();
     };
 
     return (
-        <form onSubmit={formik.handleSubmit}>
+        <FormBlock onSubmit={formik.handleSubmit}>
             <LocationItem formik={{ ...formik, handleChange: handleLocationChange }} />
             <FilterTitle>filters</FilterTitle>
             <VehicleEquipment formik={{ ...formik, handleChange: handleEquipmentChange }} />
             <VehicleType formik={{ ...formik, handleChange: handleTypeChange }} />
             <ButtonItem text='Submit' type="submit" style='red' />
-        </form>
+        </FormBlock>
     );
 }

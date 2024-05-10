@@ -15,6 +15,7 @@ export default function Home() {
     const [displayedCamperData, setDisplayedCamperData] = useState([]);
 
     const res = useSelector(filteredCampers);
+
     const favorites = useSelector(favoritesData);
 
     useEffect(() => {
@@ -31,14 +32,14 @@ export default function Home() {
     }, [dispatch]);
 
     useEffect(() => {
-        if (res && res.length > 0) {
-            const favoritesFromLocalStorage = JSON.parse(localStorage.getItem('favorites')) || [];
-            const updatedCamperData = res.map(camper => ({
-                ...camper,
-                isFavorite: favoritesFromLocalStorage.some(favorite => favorite.id === camper.id)
-            }));
-            setDisplayedCamperData(updatedCamperData.slice(0, currentPage * ITEMS_PER_PAGE));
-        }
+
+        const favoritesFromLocalStorage = JSON.parse(localStorage.getItem('favorites')) || [];
+        const updatedCamperData = res.map(camper => ({
+            ...camper,
+            isFavorite: favoritesFromLocalStorage.some(favorite => favorite.id === camper.id)
+        }));
+        setDisplayedCamperData(updatedCamperData.slice(0, currentPage * ITEMS_PER_PAGE));
+
     }, [res, currentPage, favorites]);
 
 
