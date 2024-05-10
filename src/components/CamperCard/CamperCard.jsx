@@ -35,6 +35,8 @@ export const CamperCard = ({ item, }) => {
             if (!isAlreadyInFavorites) {
                 addToLocalStorage('favorites', item);
                 dispatch(addFavoriteCamp(item));
+            } else {
+                item.isFavorite = false
             }
         }
     };
