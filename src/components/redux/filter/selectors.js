@@ -20,10 +20,12 @@ export const filteredCampers = createSelector(
             if (filter.type && filter.type !== 'All' && !camp.form.toLowerCase().includes(filter.type.toLowerCase())) {
                 return false;
             }
-
             if (equipmentFilter) {
                 if (equipmentFilter === "automatic" && camp.transmission.toLowerCase() !== "automatic") {
                     return false;
+                }
+                if (equipmentFilter.toLowerCase() === 'all') {
+                    return true;
                 }
 
                 if (camp.details && equipmentFilter in camp.details) {
