@@ -5,8 +5,8 @@ export const NavMenu = () => {
         <nav>
             <NavList>
                 <li><NavItem to="/">Home</NavItem></li>
-                <li><NavItem to="/favorites">Favorites</NavItem></li>
                 <li><NavItem to="/catalog">Catalog</NavItem></li>
+                <li><NavItem to="/favorites">Favorites</NavItem></li>
             </NavList>
         </nav>
     );

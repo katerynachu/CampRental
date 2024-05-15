@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { favoritesData } from '../components/redux/campers/selectors';
 import { CamperList } from '../components/CamperList/CamperList'
 import { setFavoritesData, removeFavoritesCamp, addFavoriteCamp } from '../components/redux/campers/camperSlice';
+import { NotFound } from '../components/NotFound/NotFound';
 
 const ITEMS_PER_PAGE = 4;
 
@@ -44,8 +45,7 @@ export default function Favorites() {
             {displayedCamperData && displayedCamperData.length > 0 ? (
                 <CamperList onLoadMore={handleLoadMore} onRemoveFavorite={handleRemoveFavorite} onAddFavorite={handleAddFavorite} defaultData={favorites} items={displayedCamperData} />
             ) : (
-                <p>Not found </p>
-
+                <NotFound text={'in your favorites'} />
             )}
         </>)
 }

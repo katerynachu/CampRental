@@ -7,6 +7,7 @@ import { filteredCampers } from '../../components/redux/filter/selectors'
 import { favoritesData } from '../../components/redux/campers/selectors'
 import { SideBar } from '../../components/SideBar/SideBar';
 import { HomeWrapper } from './Catalog.styled';
+import { NotFound } from '../../components/NotFound/NotFound';
 const ITEMS_PER_PAGE = 4;
 
 export default function Home() {
@@ -53,8 +54,7 @@ export default function Home() {
             {displayedCamperData && displayedCamperData.length > 0 ? (
                 <CamperList onLoadMore={handleLoadMore} defaultData={res} items={displayedCamperData} />
             ) : (
-                <p>Not found </p>
-
+                <NotFound />
             )}
         </HomeWrapper>
     );
