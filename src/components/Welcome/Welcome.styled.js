@@ -22,6 +22,7 @@ export const Banner = styled.div`
     background-size: cover;
     background-position: bottom;
 `
+export const BannerTwo = styled.div`
     background-image: url(${picturetwo});
     height: 300px;
     border-radius: 8px;
